@@ -22,10 +22,9 @@ class WelcomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val user = User("aaa",10)
         binding.textView.setOnClickListener {
-            val action = WelcomeFragmentDirections.actionWelcomeFragmentToHomeFragment("aaa","bbb",user)
-            findNavController().navigate(R.id.action_welcomeFragment_to_homeFragment)
+//            val action = WelcomeFragmentDirections.actionWelcomeFragmentToHomeFragment("aaa","bbb",user)
+//            findNavController().navigate(R.id.action_welcomeFragment_to_homeFragment)
 //            binding.root.findNavController()
         }
     }

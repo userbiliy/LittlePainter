@@ -12,7 +12,6 @@ import com.example.littlepainter.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private val args:HomeFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +27,7 @@ class HomeFragment : Fragment() {
 //        binding.textView.text = args.str
 
         binding.textView.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_drawFragment)
+//            findNavController().navigate(R.id.action_homeFragment_to_drawFragment)
 //            binding.root.findNavController()
         }
     }

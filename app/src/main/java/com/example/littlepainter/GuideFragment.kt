@@ -23,7 +23,7 @@ class GuideFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.textView.setOnClickListener {
-            findNavController().navigate(R.id.action_guideFragment_to_homeFragment)
+//            findNavController().navigate(R.id.action_guideFragment_to_homeFragment)
 //            binding.root.findNavController()
         }
     }

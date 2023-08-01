@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.littlepainter.databinding.FragmentDrawBinding
-import com.example.littlepainter.databinding.FragmentWelcomeBinding
 
-class drawFragment : Fragment() {
+class DrawFragment : Fragment() {
     private lateinit var binding: FragmentDrawBinding
 
     override fun onCreateView(
