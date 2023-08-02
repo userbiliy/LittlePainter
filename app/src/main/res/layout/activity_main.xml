@@ -19,6 +19,7 @@
         app:navGraph="@navigation/def_nav" />
 
     <com.example.littlepainter.bottomView.BottomView
+        android:id="@+id/bottomView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:icon="@drawable/ic_guide"
-            app:title="发现"
+            app:title="联系人"
             app:normal_color="#000000"
             app:selected_color="#009788"/>
         <com.example.littlepainter.bottomView.TabItem

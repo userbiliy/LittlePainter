@@ -3,8 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/def_nav"
-    app:startDestination="@id/welcomeFragment">
+    app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.littlepainter.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="com.example.littlepainter.WelcomeFragment"
@@ -15,11 +20,6 @@
         android:name="com.example.littlepainter.GuideFragment"
         android:label="fragment_guide"
         tools:layout="@layout/fragment_guide" />
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.littlepainter.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/drawFragment"
         android:name="com.example.littlepainter.DrawFragment"

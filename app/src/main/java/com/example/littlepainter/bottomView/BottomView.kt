@@ -3,11 +3,9 @@ package com.example.littlepainter.bottomView
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.ViewGroup
 import androidx.core.view.children
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import com.example.littlepainter.R
 import com.google.android.material.internal.ViewUtils.dpToPx
 import java.lang.ref.WeakReference
@@ -25,23 +23,16 @@ import java.lang.ref.WeakReference
 class BottomView(context: Context, attrs: AttributeSet) : ViewGroup(context, attrs) {
 
     private var mSize = 0
-    private var childList:List<TabItem> = children.toList() as List<TabItem>
-    private var currentSelectedIndex = 0//当前选中控件
-//    private var lastSelectedTab:TabItem//上一个（肯定有一个被选中，不可能为空）
+    private var childList: List<TabItem> = children.toList() as List<TabItem>
+    private var lastSelectedIndex = 0//上一个（肯定有一个被选中，不可能为空）
 
-    init {
-        setBackgroundColor(resources.getColor(R.color.dark, null))
-        //给每个tabItem编号
-        childList.forEachIndexed { index, tabItem ->
-            tabItem.index = index
-        }
-        //默认选中第一个
-    }
-    //默认选中0
-    private fun selectedTabItem(index:Int){
-        //判断是否已经被选中
-        val tabItem = childList[index]
-//        if(tabItem.index == lastSelectedTab.index)return
+    private var navController:WeakReference<NavController>? = null
+
+    private fun selectTabItem(index: Int) {
+        if (index == lastSelectedIndex) return
+        childList[lastSelectedIndex].isSelected(false)
+        childList[index].isSelected(true)
+        lastSelectedIndex = index
     }
 
     @SuppressLint("RestrictedApi")
@@ -55,6 +46,19 @@ class BottomView(context: Context, attrs: AttributeSet) : ViewGroup(context, att
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         mSize = w / 4
+
+        childList = children.toList() as List<TabItem>
+        //默认选中主页
+        childList[lastSelectedIndex].isSelected(true)
+        //给每个tabItem编号
+        childList.forEachIndexed { index, tabItem ->
+            tabItem.index = index
+            tabItem.addListener = { tabItem, i ->
+                selectTabItem(i)
+                navController?.get()?.popBackStack()
+                navController?.get()?.navigate(tabItem.id)
+            }
+        }
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
@@ -67,4 +71,8 @@ class BottomView(context: Context, attrs: AttributeSet) : ViewGroup(context, att
         }
     }
 
+    //配置NavController
+    fun setNavController(navController: NavController){
+        this.navController = WeakReference(navController)
+    }
 }

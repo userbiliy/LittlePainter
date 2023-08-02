@@ -18,8 +18,7 @@ import com.google.android.material.internal.ViewUtils.dpToPx
 class TabItem(context: Context, attrs: AttributeSet?) : ViewGroup(context, attrs) {
 
     private lateinit var mTitle: String
-    private lateinit var mNormalIcon: Drawable
-    private lateinit var mSelectedIcon: Drawable
+    private lateinit var mIcon: Drawable
     private var mNormalColor: Int = 0
     private var mSelectedColor: Int = 0
 
@@ -45,52 +44,14 @@ class TabItem(context: Context, attrs: AttributeSet?) : ViewGroup(context, attrs
         }
     }
 
-
-
-    private fun touchEvent(){
-        val scaleAnim = AnimationUtils.loadAnimation(context,R.anim.scale).apply {
-            interpolator = BounceInterpolator()
-        }
-        mTabIcon.startAnimation(scaleAnim)
-        mTabTitle.startAnimation(scaleAnim)
-
-        addListener?.let { it(this,index) }
-
-    }
-
-    //是否被选中
-    fun isSelected(isSelected:Boolean){
-        if (isSelected){
-            changeState(SelectState.Selected)
-        }else{
-            changeState(SelectState.Normal)
-        }
-    }
-
-    //更改选中状态
-    private fun changeState(state:SelectState ){
-        val color = if(state == SelectState.Selected) mSelectedColor else mNormalColor
-            mTabIcon.setImageDrawable(tintDrawable(mNormalIcon,color))
-            mTabTitle.setTextColor(color)
-    }
-
-    //渲染颜色
-    private fun tintDrawable(drawable: Drawable,color:Int):Drawable{
-        val tintDrawable = DrawableCompat.wrap(drawable)
-        tintDrawable.setTint(color)
-        return tintDrawable
-    }
-
     @SuppressLint("CustomViewStyleable", "UseCompatLoadingForDrawables")
     private fun parseAttrs(attrs: AttributeSet?) {
         context.obtainStyledAttributes(attrs, R.styleable.tabItem).apply {
             mTitle = getString(R.styleable.tabItem_title) ?: "tab"
-            mNormalIcon = getDrawable(R.styleable.tabItem_icon)
+            mIcon = getDrawable(R.styleable.tabItem_icon)
                 ?: resources.getDrawable(R.drawable.ic_launcher_foreground)
-            mSelectedIcon = getDrawable(R.styleable.tabItem_selected_icon) ?: resources.getDrawable(
-                R.drawable.ic_launcher_foreground
-            )
-            mNormalColor = getColor(R.styleable.tabItem_normal_color, resources.getColor(R.color.black))
+            mNormalColor =
+                getColor(R.styleable.tabItem_normal_color, resources.getColor(R.color.black))
             mSelectedColor = getColor(R.styleable.tabItem_selected_color, mNormalColor)
 
             recycle()
@@ -100,7 +61,7 @@ class TabItem(context: Context, attrs: AttributeSet?) : ViewGroup(context, attrs
     private fun addChild() {
         //图标
         mTabIcon = ImageView(context).apply {
-            setImageDrawable(mNormalIcon)
+            setImageDrawable(mIcon)
             scaleType = ImageView.ScaleType.FIT_CENTER
         }
         //标题
@@ -113,6 +74,17 @@ class TabItem(context: Context, attrs: AttributeSet?) : ViewGroup(context, attrs
         addView(mTabTitle, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT))//内容决定
 
         measureChild(mTabTitle, MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
+    }
+
+    private fun touchEvent() {
+        val scaleAnim = AnimationUtils.loadAnimation(context, R.anim.scale).apply {
+            interpolator = BounceInterpolator()
+        }
+        mTabIcon.startAnimation(scaleAnim)
+        mTabTitle.startAnimation(scaleAnim)
+
+        addListener?.let { it(this, index) }
+
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
@@ -132,8 +104,33 @@ class TabItem(context: Context, attrs: AttributeSet?) : ViewGroup(context, attrs
         )
     }
 
+
+    //是否被选中
+    fun isSelected(isSelected: Boolean) {
+        if (isSelected) {
+            changeState(SelectState.Selected)
+        } else {
+            changeState(SelectState.Normal)
+        }
+    }
+
+    //更改选中状态
+    private fun changeState(state: SelectState) {
+        val currentColor = if (state == SelectState.Selected) mSelectedColor else mNormalColor
+        mTabIcon.setImageDrawable(tintDrawable(mIcon, currentColor))
+        mTabTitle.setTextColor(currentColor)
+    }
+
+    //渲染颜色
+    private fun tintDrawable(drawable: Drawable, color: Int): Drawable {
+        val tintDrawable = DrawableCompat.wrap(drawable)
+        DrawableCompat.setTint(tintDrawable, color)
+        return tintDrawable
+    }
+
+
 }
 
-enum class SelectState{
-    Normal,Selected
+enum class SelectState {
+    Normal, Selected
 }
