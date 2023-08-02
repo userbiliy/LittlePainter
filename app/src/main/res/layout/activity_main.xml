@@ -18,12 +18,49 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/def_nav" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
+    <com.example.littlepainter.bottomView.BottomView
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/fragmentContainerView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_menu"/>
+        app:layout_constraintStart_toStartOf="parent">
+        <com.example.littlepainter.bottomView.TabItem
+            android:id="@+id/homeFragment"
+            android:background="#ffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_home"
+            app:title="主页"
+            app:normal_color="#000000"
+            app:selected_color="#009788"
+            />
+        <com.example.littlepainter.bottomView.TabItem
+            android:id="@+id/welcomeFragment"
+            android:background="#ffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_face"
+            app:title="消息"
+            app:normal_color="#000000"
+            app:selected_color="#009788"/>
+        <com.example.littlepainter.bottomView.TabItem
+            android:id="@+id/guideFragment"
+            android:background="#ffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_guide"
+            app:title="发现"
+            app:normal_color="#000000"
+            app:selected_color="#009788"/>
+        <com.example.littlepainter.bottomView.TabItem
+            android:id="@+id/drawFragment"
+            android:background="#ffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_draw"
+            app:title="个人"
+            app:normal_color="#000000"
+            app:selected_color="#009788"/>
+    </com.example.littlepainter.bottomView.BottomView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,17 +22,17 @@ class MainActivity : AppCompatActivity() {
         /**
          * 让bottomNavigationView 和 NavController 关联
          */
-        binding.bottomNavigationView.setupWithNavController(navController)
-        binding.bottomNavigationView.setOnItemSelectedListener {menuItem->
-            navController.popBackStack()
-            navController.navigate(menuItem.itemId)
+//        binding.bottomNavigationView.setupWithNavController(navController)
+//        binding.bottomNavigationView.setOnItemSelectedListener {menuItem->
+//            navController.popBackStack()
+//            navController.navigate(menuItem.itemId)
 //            when(menuItem.itemId){
 //                R.id.homeFragment -> navController.navigate(R.id.homeFragment)
 //                R.id.welcomeFragment -> navController.navigate(R.id.welcomeFragment)
 //                R.id.guideFragment -> navController.navigate(R.id.guideFragment)
 //                R.id.drawFragment -> navController.navigate(R.id.drawFragment)
 //            }
-            true
-        }
+//            true
+//        }
     }
 }
