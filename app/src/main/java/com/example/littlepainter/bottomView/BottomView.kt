@@ -23,9 +23,9 @@ import java.lang.ref.WeakReference
 class BottomView(context: Context, attrs: AttributeSet) : ViewGroup(context, attrs) {
 
     private var mSize = 0
+
     private var childList: List<TabItem> = children.toList() as List<TabItem>
     private var lastSelectedIndex = 0//上一个（肯定有一个被选中，不可能为空）
-
     private var navController:WeakReference<NavController>? = null
 
     private fun selectTabItem(index: Int) {

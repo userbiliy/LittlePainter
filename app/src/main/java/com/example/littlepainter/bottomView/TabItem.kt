@@ -35,7 +35,6 @@ class TabItem(context: Context, attrs: AttributeSet?) : ViewGroup(context, attrs
     var index = 0//当前item的编号
     var addListener: ((TabItem, Int) -> Unit)? = null
 
-
     init {
         parseAttrs(attrs)
         addChild()
@@ -76,17 +75,6 @@ class TabItem(context: Context, attrs: AttributeSet?) : ViewGroup(context, attrs
         measureChild(mTabTitle, MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
     }
 
-    private fun touchEvent() {
-        val scaleAnim = AnimationUtils.loadAnimation(context, R.anim.scale).apply {
-            interpolator = BounceInterpolator()
-        }
-        mTabIcon.startAnimation(scaleAnim)
-        mTabTitle.startAnimation(scaleAnim)
-
-        addListener?.let { it(this, index) }
-
-    }
-
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
 
         val iconLeft = (width - mIconSize) / 2
@@ -104,6 +92,16 @@ class TabItem(context: Context, attrs: AttributeSet?) : ViewGroup(context, attrs
         )
     }
 
+    private fun touchEvent() {
+        val scaleAnim = AnimationUtils.loadAnimation(context, R.anim.scale).apply {
+            interpolator = BounceInterpolator()
+        }
+        mTabIcon.startAnimation(scaleAnim)
+        mTabTitle.startAnimation(scaleAnim)
+
+        addListener?.let { it(this, index) }
+
+    }
 
     //是否被选中
     fun isSelected(isSelected: Boolean) {
